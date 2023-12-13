@@ -16,6 +16,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <limits>
 #include <sstream>
 #include <map>
 #include <iomanip>
