@@ -19,7 +19,7 @@
     "name" : "KFusion",
     "reference" : "Newcombe et al. ISMAR'11",
     "original_repo" : "https://github.com/GerhardR/kfusion",
-    "new_repo" : "ttps://github.com/pamela-project/kfusion",
+    "new_repo" : "https://github.com/pamela-project/kfusion",
     "branch" : "update-master",
     "path" : "benchmarks/kfusion/src/original"
   },
