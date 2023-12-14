@@ -14,7 +14,7 @@ ${REPOS_DIR}/opencv :
 ${DEPS_DIR}/opencv : ${REPOS_DIR}/opencv
 	cd ${REPOS_DIR}/opencv && mkdir build_dir -p
 	cd ${REPOS_DIR}/opencv && rm build_dir/* -rf
-	cd ${REPOS_DIR}/opencv/build_dir && cmake -D CMAKE_BUILD_TYPE=RELEASE  -D CMAKE_INSTALL_PREFIX=$@    -DCMAKE_CXX_FLAGS="-Wno-error=address"             \
+	cd ${REPOS_DIR}/opencv/build_dir && cmake -D CMAKE_BUILD_TYPE=RELEASE  -D CMAKE_INSTALL_PREFIX=$@    -DCMAKE_CXX_FLAGS="-Wno-error=address -Wno-deprecated-copy -Wno-class-memaccess"             \
 	-DWITH_GSTREAMER=OFF -DWITH_FFMPEG=OFF -DBUILD_PERF_TESTS=OFF  -D WITH_OPENCL=OFF -D BUILD_WITH_DEBUG_INFO=OFF  -D WITH_1394=OFF                \
 	-D BUILD_TESTS=OFF  -D WITH_TBB=OFF  -D WITH_V4L=OFF  -D WITH_OPENGL=OFF -D BUILD_opencv_gpu=OFF    \
 	  -D BUILD_opencv_java=OFF -D WITH_CUDA=OFF -DWITH_GTK=ON   -D BUILD_opencv_ml=ON  -D BUILD_opencv_videostab=OFF             \

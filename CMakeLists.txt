@@ -23,7 +23,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
     add_definitions(-D_FILE_OFFSET_BITS=64) ## Workaround for 32 bit boards with fwrite 2G limit
 
     set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=deprecated-declarations ") # Eigen raises deprecated declarations warnings and int-in-bool-context warnings.
-    set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-unknown-pragmas -Wno-error=deprecated-declarations -Wno-error=unused-result -Wno-error=reorder")
+    set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-unknown-pragmas -Wno-error=deprecated-declarations -Wno-error=unused-result -Wno-error=reorder -Wno-deprecated-copy -Wno-misleading-indentation")
 
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 6.0)
         set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=ignored-attributes -Wno-misleading-indentation")

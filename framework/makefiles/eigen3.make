@@ -10,7 +10,7 @@ ${REPOS_DIR}/eigen3 :
 ${DEPS_DIR}/eigen3  : ${REPOS_DIR}/eigen3 
 	cd ${REPOS_DIR}/eigen3 && mkdir build_dir -p
 	cd ${REPOS_DIR}/eigen3 && rm build_dir/* -rf
-	cd ${REPOS_DIR}/eigen3/build_dir && cmake .. -DBUILD_SHARED_LIBS=OFF  -DCMAKE_BUILD_TYPE=Release  "-DCMAKE_INSTALL_PREFIX:PATH=$@" 
+	cd ${REPOS_DIR}/eigen3/build_dir && cmake .. -DBUILD_SHARED_LIBS=OFF  -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Wno-deprecated-copy" "-DCMAKE_INSTALL_PREFIX:PATH=$@" 
 	+cd ${REPOS_DIR}/eigen3/build_dir && make
 	mkdir ${DEPS_DIR}/eigen3 -p
 	cd ${REPOS_DIR}/eigen3/build_dir && make install

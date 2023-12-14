@@ -15,7 +15,7 @@ ${DEPS_DIR}/g2o : ${REPOS_DIR}/g2o suitesparse eigen3
 	cd ${REPOS_DIR}/g2o/build && cmake .. "-DCMAKE_INSTALL_PREFIX:PATH=$@"  \
 	             -DCHOLMOD_LIBRARY=${SUITE_SPARSE_ROOT}/lib/libcholmod.a -DCHOLMOD_FOUND=TRUE -DCHOLMOD_INCLUDE_DIR=${SUITE_SPARSE_ROOT}/include/ -DCHOLMOD_LIBRARIES=${SUITE_SPARSE_ROOT}/lib \
 	             -DCSPARSE_INCLUDE_DIR=${SUITE_SPARSE_ROOT}/include/ -DCSPARSE_LIBRARY=${SUITE_SPARSE_ROOT}/lib/libcxsparse.a\
-	             -DEIGEN3_INCLUDE_DIR=${EIGEN3_INCLUDE_DIR}
+	             -DEIGEN3_INCLUDE_DIR=${EIGEN3_INCLUDE_DIR} -DCMAKE_CXX_FLAGS="-Wno-int-in-bool-context -Wno-misleading-indentation -Wno-deprecated-copy -Wno-aggressive-loop-optimizations -Wno-uninitialized -Wno-maybe-uninitialized"
 	+cd ${REPOS_DIR}/g2o/build && make
 	mkdir -p $@
 	cd ${REPOS_DIR}/g2o/build && make install

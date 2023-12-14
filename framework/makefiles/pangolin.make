@@ -17,7 +17,7 @@ ${DEPS_DIR}/pangolin : ${REPOS_DIR}/pangolin  eigen3
 		echo "ERROR: Pangolin requires EIGEN to be fully functional (make eigen).";\
 		exit 1;\
 	fi;
-	cd ${REPOS_DIR}/pangolin && mkdir -p build && cd build && cmake .. -DBUILD_PANGOLIN_VIDEO=OFF  "-DCMAKE_INSTALL_PREFIX:PATH=$@"  -DEIGEN_INCLUDE_DIR=${EIGEN3_INCLUDE_DIR}
+	cd ${REPOS_DIR}/pangolin && mkdir -p build && cd build && cmake .. -DBUILD_PANGOLIN_VIDEO=OFF  "-DCMAKE_INSTALL_PREFIX:PATH=$@"  -DEIGEN_INCLUDE_DIR=${EIGEN3_INCLUDE_DIR} -DCMAKE_CXX_FLAGS="-Wno-parentheses -Wno-maybe-uninitialized -Wno-stringop-truncation -Wno-misleading-indentation -Wno-int-in-bool-context -Wno-catch-value -Wno-deprecated-copy"
 	+cd ${REPOS_DIR}/pangolin/build && make
 	mkdir -p $@
 	cd ${REPOS_DIR}/pangolin/build && make install

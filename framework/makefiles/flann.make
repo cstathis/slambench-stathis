@@ -13,7 +13,7 @@ ${REPOS_DIR}/flann :
 ${DEPS_DIR}/flann : ${REPOS_DIR}/flann
 	mkdir ${REPOS_DIR}/flann/build -p
 	rm ${REPOS_DIR}/flann/buid/* -rf
-	cd ${REPOS_DIR}/flann/build && cmake .. "-DCMAKE_INSTALL_PREFIX:PATH=$@" -DBUILD_MATLAB_BINDINGS=FALSE -DBUILD_PYTHON_BINDINGS=FALSE -DBUILD_EXAMPLES=FALSE -DBUILD_TESTS=FALSE -DBUILD_DOC=FALSE
+	cd ${REPOS_DIR}/flann/build && cmake .. "-DCMAKE_INSTALL_PREFIX:PATH=$@" -DBUILD_MATLAB_BINDINGS=FALSE -DBUILD_PYTHON_BINDINGS=FALSE -DBUILD_EXAMPLES=FALSE -DBUILD_TESTS=FALSE -DBUILD_DOC=FALSE -DCMAKE_CXX_FLAGS="-Wno-misleading-indentation"
 	+cd ${REPOS_DIR}/flann/build && make 
 	mkdir -p $@
 	cd ${REPOS_DIR}/flann/build && make install
