@@ -30,7 +30,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
     endif()
 
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
-        set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=implicit-fallthrough= -Wno-int-in-bool-context ")
+        set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=implicit-fallthrough= -Wno-int-in-bool-context -Wno-catch-value -Wno-reorder -Wno-strict-aliasing -Wno-unused-parameter -Wno-unused-result -Wno-format")
     endif()
 endif()
 
