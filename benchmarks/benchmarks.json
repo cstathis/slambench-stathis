@@ -11,8 +11,8 @@
     "name" : "KFusion",
     "reference" : "Newcombe et al. ISMAR'11",
     "original_repo" : "https://github.com/GerhardR/kfusion",
-    "new_repo" : "https://github.com/pamela-project/kfusion",
-    "branch" : "update-master",
+    "new_repo" : "ssh://git@github.com/cstathis/kfusion",
+    "branch" : "master",
     "path" : "benchmarks/kfusion/src/original"
   },
   "kinectfusion" : {
