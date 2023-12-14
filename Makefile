@@ -26,7 +26,7 @@ infos:
 	      Alternatively, to see the list of available algorithms, use:\n\
 	     ${BoldGreen} - make usecases ${ColorOff}\n\
 	  (4) For information about downloading and building one of the available datasets, use:\n\
-	     ${BoldGreen} - make datasetslist ${ColorOff}\n\
+	     ${BoldGreen} - make datasets${ColorOff}\n\
 	  (5) Once the desired datasets and algorithms were built, you can run the benchmark using:\n\
 	     ${BoldGreen} - ./build/bin/slambench -i path/to/dataset.slam -load path/to/algorithm-library.so ${ColorOff}\n\
 	"
