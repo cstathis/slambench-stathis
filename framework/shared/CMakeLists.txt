@@ -162,7 +162,7 @@ endif(OpenNI_FOUND)
 
 find_package(OpenNI2)
 if(OpenNI2_FOUND)
-	message(STATUS "SLAMBENCH will use OpenNI 2.X, include path = ${OPENNI2_INCLUDE_PATHS#}")
+	message(STATUS "SLAMBENCH will use OpenNI 2.X, include path = ${OPENNI2_INCLUDE_PATHS}")
 	include_directories(${OPENNI2_INCLUDE_PATHS})
 	set(common_properties "${common_properties} -DDO_OPENNI20")
 	set(common_libraries "${common_libraries}" "${OPENNI2_LIBRARIES}")
