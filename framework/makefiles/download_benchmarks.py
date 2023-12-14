@@ -55,8 +55,6 @@ for algorithm_token, details in data.items():
         echo("Original repository: %s" % original_repo)
         echo("Used repository: %s" % new_repo)
         echo("=================================================================================================================")
-        print("")
-        print("\t@echo \"Are you sure you want to download this use-case (y/n) ?\" && ${GET_REPLY} && echo REPLY=$$REPLY && if [ ! \"$$REPLY\" == \"y\" ] ; then echo -e \"\\nExit.\"; false; else echo -e \"\\nDownload starts.\"; fi")
     print("\tmkdir -p %s" % target_dir)
     print("\trm %s -rf" % target_dir)
     print("\tgit clone --recursive --branch %s %s %s" % (branch, new_repo, target_dir))
