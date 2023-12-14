@@ -20,6 +20,8 @@ ${REPOS_DIR}/pcl :
 	rm ${REPOS_DIR}/pcl -rf
 	git clone "https://github.com/PointCloudLibrary/pcl.git" ${REPOS_DIR}/pcl
 	cd $@ && git checkout 6fb1b65d3099a915255b070269b1ac78ed384921
+	find ${REPOS_DIR}/pcl -type f -exec sed -i -e 's/boost\/detail\/endian.hpp/boost\/predef\/other\/endian.h/g' -e 's/BOOST_BIG_ENDIAN/BOOST_ENDIAN_BIG_BYTE/g' -e 's/BOOST_LITTLE_ENDIAN/BOOST_ENDIAN_LITTLE_BYTE/g' {} +
+
 # BUILD #
 ${DEPS_DIR}/pcl : ${REPOS_DIR}/pcl eigen3 flann
 	if [ ! -e $(EIGEN3_INCLUDE_DIR) ] ; \
@@ -66,7 +68,7 @@ ${DEPS_DIR}/pcl : ${REPOS_DIR}/pcl eigen3 flann
 	-DBUILD_tools=FALSE \
 	"-DCMAKE_INSTALL_PREFIX:PATH=$@" \
 	-DEIGEN_INCLUDE_DIR=${EIGEN3_INCLUDE_DIR} \
-	-DFLANN_LIBRARY=${FLANN_LIBRARY} -DCMAKE_BUILD_TYPE=RELEASE \
+	-DFLANN_LIBRARY=${FLANN_LIBRARY} -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_CXX_FLAGS="-Wno-format-overflow -Wno-deprecated-copy -Wno-implicit-fallthrough -Wno-ignored-qualifiers -Wno-expansion-to-defined -Wno-unused-parameter -Wno-maybe-uninitialized -Wno-deprecated-declarations -Wno-class-memaccess" \
 	-DFLANN_INCLUDE_DIR=${FLANN_INCLUDE_DIR}  > ${DEPS_BUILD_DIR}/pcl/build.log.tmp 2>&1
 	if cat ${DEPS_BUILD_DIR}/pcl/build.log.tmp | grep "Requires external library" ; then echo "Error with deps of PCL." ; exit 1 ; fi
 	+cd ${DEPS_BUILD_DIR}/pcl/ && make 
