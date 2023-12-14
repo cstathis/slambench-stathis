@@ -47,7 +47,6 @@ slambench: build/Makefile
 	@echo ""
 	@echo "Tools/Debugger available: "
 	@echo -n "  - build/bin/slambench:          " ; if [ -f build/bin/slambench ] ; then echo -e "${BoldGreen}Found${ColorOff}" ; else echo -e "${BoldRed}Not found (Missing dependencies?)${ColorOff}" ; fi
-	@echo -n "  - build/bin/pointcloud_aligner: " ; if [ -f build/bin/pointcloud_aligner ] ; then echo -e "${BoldGreen}Found${ColorOff}" ; else echo -e "${BoldRed}Not found (Missing dependencies (i.e. pcl)?)${ColorOff}" ; fi
 	@echo -n "  - build/bin/dataset-generator:  " ; if [ -f build/bin/dataset-generator ] ; then echo -e "${BoldGreen}Found${ColorOff}" ; else echo -e "${BoldRed}Not found (Missing dependencies?)${ColorOff}" ; fi
 	@echo -n "  - build/bin/io-inspect-file:    " ; if [ -f build/bin/io-inspect-file ] ; then echo -e "${BoldGreen}Found${ColorOff}" ; else echo -e "${BoldRed}Not found (Missing dependencies?)${ColorOff}" ; fi
 	@echo -n "  - build/bin/io-readply:         " ; if [ -f build/bin/io-readply ] ; then echo -e "${BoldGreen}Found${ColorOff}" ; else echo -e "${BoldRed}Not found (Missing dependencies?)${ColorOff}" ; fi
