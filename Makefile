@@ -1,11 +1,6 @@
 ECHO=/bin/echo
-#SHELL := /bin/bash
 WGET:=wget
-GET_REPLY:=read REPLY
-ifeq ("${SBQUIET}","1")
-GET_REPLY:=REPLY="y"
 WGET:=wget -q
-endif
 
 BoldGreen=\033[1;32m
 BoldRed=\033[1;31m

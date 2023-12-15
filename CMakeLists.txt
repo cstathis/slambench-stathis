@@ -51,50 +51,68 @@ set(ColorReset  "${Esc}[m")
 set(Red         "${Esc}[31m")
 set(Green       "${Esc}[32m")
 
+# TODO(stathis): Why is this here?
 SET(NULL_FILE_PATH ${PROJECT_BINARY_DIR}/null.cpp)
 if (NOT EXISTS ${NULL_FILE_PATH})
     file(WRITE ${NULL_FILE_PATH} "")
 ENDIF()
 
+# Invoked by benchmarks/*/CMakeLists.txt
+# Ex. explore_implementations(orbslam2 src/*)
 function(explore_implementations algorithm_name implementations_path)
     set(appname ${algorithm_name})
+
+    # Looking for multiple versions of the same library e.g. "original".
     FILE(GLOB VERSIONS ${implementations_path})
 
     FOREACH(version_dir ${VERSIONS})
         IF(IS_DIRECTORY ${version_dir})
+            # Store the name of the directory into the variable appversion.
             get_filename_component(appversion ${version_dir} NAME)
             MESSAGE(STATUS "Load version ${appversion} of ${appname}.")
+
+            # Add the directory to the build.
             ADD_SUBDIRECTORY(${version_dir})
         ENDIF()
     ENDFOREACH(version_dir)
 endfunction()
 
-function(generate_slam_binaries_only library_name )
-    message(STATUS "Potential interfaces are ${SLAMBENCH_INTERFACES}...")
-    FOREACH(INTERFACE ${SLAMBENCH_INTERFACES})
-        message(STATUS "${Green}Generation of ${library_name}-${INTERFACE} : Activated${ColorReset}")
+# Note(stathis): This is unused?
+#function(generate_slam_binaries_only library_name )
+#    message(STATUS "Potential interfaces are ${SLAMBENCH_INTERFACES}...")
+#    FOREACH(INTERFACE ${SLAMBENCH_INTERFACES})
+#        message(STATUS "${Green}Generation of ${library_name}-${INTERFACE} : Activated${ColorReset}")
+#
+#        add_executable(${library_name}-${INTERFACE}  ${NULL_FILE_PATH})
+#        target_link_libraries(${library_name}-${INTERFACE} PRIVATE ${library_name} ${INTERFACE} ${library_name})
+#        SET_TARGET_PROPERTIES(${library_name}-${INTERFACE} PROPERTIES LINK_FLAGS "${ARGN}")
+#        install(TARGETS ${library_name}-${INTERFACE}  DESTINATION  bin/)
+#    ENDFOREACH()
+#endfunction()
 
-        add_executable(${library_name}-${INTERFACE}  ${NULL_FILE_PATH})
-        target_link_libraries(${library_name}-${INTERFACE} PRIVATE ${library_name} ${INTERFACE} ${library_name})
-        SET_TARGET_PROPERTIES(${library_name}-${INTERFACE} PROPERTIES LINK_FLAGS "${ARGN}")
-        install(TARGETS ${library_name}-${INTERFACE}  DESTINATION  bin/)
-    ENDFOREACH()
-endfunction()
-
+# This is invoked by the specific version of the benchmark library.
+# Ex. in benchmarks/orbslam2/src/original/CMakeLists.txt:
+# generate_slam_library(${PROJECT_NAME}-original "")
+# Where ${PROJECT_NAME} is orbslam2  
 function(generate_slam_library library_name )
-
+    # TODO(stathis): What is SLAMBENCH_INTERFACES?
     message(STATUS "Potential interfaces are ${SLAMBENCH_INTERFACES}...")
     FOREACH(INTERFACE ${SLAMBENCH_INTERFACES})
         message(STATUS "${Green}Generation of ${library_name}-${INTERFACE} : Activated${ColorReset}")
 
+        # TODO(stathis): Why write an executable with an empty source file?
         add_executable(${library_name}-${INTERFACE}  ${NULL_FILE_PATH})
         target_link_libraries(${library_name}-${INTERFACE} PRIVATE ${library_name} ${INTERFACE} ${library_name})
+
+        # ARGN is the list of arguments past the last accessed one
         SET_TARGET_PROPERTIES(${library_name}-${INTERFACE} PROPERTIES LINK_FLAGS "${ARGN}")
         install(TARGETS ${library_name}-${INTERFACE}  DESTINATION  bin/)
     ENDFOREACH()
 
     message(STATUS "${Green}Generation of ${library_name}-library : Activated${ColorReset}")
     add_library(${library_name}-library SHARED ${NULL_FILE_PATH})
+
+    # TODO(stathis): Why just the C wrapper?
     target_link_libraries(${library_name}-library PRIVATE ${SLAMBENCH_C_WRAPPER} ${library_name})
     SET_TARGET_PROPERTIES(${library_name}-library PROPERTIES LINK_FLAGS "${ARGN}")
     install(TARGETS ${library_name}-library  DESTINATION  lib/)
