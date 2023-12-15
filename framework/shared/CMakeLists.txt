@@ -84,7 +84,7 @@ if (PAPI_FOUND)
 endif(PAPI_FOUND)
 
 add_library(slambench-metrics ${MetricFiles})
-set_target_properties(slambench-metrics PROPERTIES COMPILE_FLAGS "${common_properties}")
+set_target_properties(slambench-metrics PROPERTIES COMPILE_FLAGS "-fPIC ${common_properties}")
 
 add_library(slambench-io
 	${sensors_files}
@@ -198,4 +198,5 @@ endif()
 
 target_link_libraries(slambench-utils "-Wl,--no-as-needed;${EXTRA_LIBS_FOR_MEMORY};-Wl,--as-needed" ${common_libraries} dl)
 set_target_properties(slambench-utils PROPERTIES COMPILE_FLAGS "-fPIC ${common_properties}")
+set_target_properties(slambench-io  PROPERTIES COMPILE_FLAGS "-fPIC ${common_properties}")
 

@@ -41,7 +41,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GENERAL_COMPILATION_FLAGS}")
 find_package(Eigen3 REQUIRED)
 
 SET(SLAMBENCH_INCLUDE_DIR  ${EIGEN3_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/framework/shared/include CACHE STRING "The include paths needed to use SLAMBENCH")
-SET(SLAMBENCH_LIBRARIES    slambench-utils         -Wl,--whole-archive slambench-io                slambench-metrics  -Wl,--no-whole-archive)
+SET(SLAMBENCH_LIBRARIES    slambench-utils         -Wl,--whole-archive                slambench-io slambench-metrics  -Wl,--no-whole-archive)
 SET(SLAMBENCH_C_WRAPPER                            -Wl,--whole-archive slambench-c-wrapper                            -Wl,--no-whole-archive)
 
 # SLAMBENCH FUNCTIONS 
@@ -96,18 +96,17 @@ endfunction()
 # Where ${PROJECT_NAME} is orbslam2  
 function(generate_slam_library library_name )
     # TODO(stathis): What is SLAMBENCH_INTERFACES?
-    message(STATUS "Potential interfaces are ${SLAMBENCH_INTERFACES}...")
-    FOREACH(INTERFACE ${SLAMBENCH_INTERFACES})
-        message(STATUS "${Green}Generation of ${library_name}-${INTERFACE} : Activated${ColorReset}")
-
+    #message(FATAL_ERROR "Potential interfaces are ${SLAMBENCH_INTERFACES}...")
+    #FOREACH(INTERFACE ${SLAMBENCH_INTERFACES})
+    #    message(FATAL_ERROR "${Green}Generation of ${library_name}-${INTERFACE} : Activated${ColorReset}")
         # TODO(stathis): Why write an executable with an empty source file?
-        add_executable(${library_name}-${INTERFACE}  ${NULL_FILE_PATH})
-        target_link_libraries(${library_name}-${INTERFACE} PRIVATE ${library_name} ${INTERFACE} ${library_name})
+    #    add_executable(${library_name}-${INTERFACE}  ${NULL_FILE_PATH})
+    #    target_link_libraries(${library_name}-${INTERFACE} PRIVATE ${library_name} ${INTERFACE} ${library_name})
 
         # ARGN is the list of arguments past the last accessed one
-        SET_TARGET_PROPERTIES(${library_name}-${INTERFACE} PROPERTIES LINK_FLAGS "${ARGN}")
-        install(TARGETS ${library_name}-${INTERFACE}  DESTINATION  bin/)
-    ENDFOREACH()
+    #    SET_TARGET_PROPERTIES(${library_name}-${INTERFACE} PROPERTIES LINK_FLAGS "${ARGN}")
+    #    install(TARGETS ${library_name}-${INTERFACE}  DESTINATION  bin/)
+    #ENDFOREACH()
 
     message(STATUS "${Green}Generation of ${library_name}-library : Activated${ColorReset}")
     add_library(${library_name}-library SHARED ${NULL_FILE_PATH})
