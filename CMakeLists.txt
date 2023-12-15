@@ -24,40 +24,13 @@ if(CMAKE_COMPILER_IS_GNUCC)
 
     set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=deprecated-declarations ") # Eigen raises deprecated declarations warnings and int-in-bool-context warnings.
     set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-unknown-pragmas -Wno-error=deprecated-declarations -Wno-error=unused-result -Wno-error=reorder -Wno-deprecated-copy -Wno-misleading-indentation")
-
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 6.0)
-        set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=ignored-attributes -Wno-misleading-indentation")
-    endif()
-
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
-        set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=implicit-fallthrough= -Wno-int-in-bool-context -Wno-catch-value -Wno-reorder -Wno-strict-aliasing -Wno-unused-parameter -Wno-unused-result -Wno-format")
-    endif()
+    set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -Wno-error=implicit-fallthrough= -Wno-int-in-bool-context -Wno-catch-value -Wno-reorder -Wno-strict-aliasing -Wno-unused-parameter -Wno-unused-result -Wno-format")
 endif()
-
-if(APPLE)
-    set(GENERAL_COMPILATION_FLAGS "${GENERAL_COMPILATION_FLAGS} -D__APPLE__")
-endif(APPLE)
 
 include(CheckCXXCompilerFlag)
-#CHECK_CXX_COMPILER_FLAG("-std=c++2a" COMPILER_SUPPORTS_CXX20)
 CHECK_CXX_COMPILER_FLAG("-std=c++17" COMPILER_SUPPORTS_CXX17)
-CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-#if(COMPILER_SUPPORTS_CXX20)
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a")
-#    message(STATUS "Using flag -std=c++2a")
-if(COMPILER_SUPPORTS_CXX17)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-    message(STATUS "Using flag -std=c++17")
-elseif(COMPILER_SUPPORTS_CXX14)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-    message(STATUS "Using flag -std=c++14")
-elseif(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    message(STATUS "Using flag -std=c++11")
-else()
-    message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
-endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+message(STATUS "Using flag -std=c++17")
 
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${GENERAL_COMPILATION_FLAGS}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GENERAL_COMPILATION_FLAGS}")
@@ -73,12 +46,10 @@ SET(SLAMBENCH_C_WRAPPER                            -Wl,--whole-archive slambench
 
 # SLAMBENCH FUNCTIONS 
 #######################################################
-if(NOT WIN32)
-    string(ASCII 27 Esc)
-    set(ColorReset  "${Esc}[m")
-    set(Red         "${Esc}[31m")
-    set(Green       "${Esc}[32m")
-endif()
+string(ASCII 27 Esc)
+set(ColorReset  "${Esc}[m")
+set(Red         "${Esc}[31m")
+set(Green       "${Esc}[32m")
 
 SET(NULL_FILE_PATH ${PROJECT_BINARY_DIR}/null.cpp)
 if (NOT EXISTS ${NULL_FILE_PATH})
