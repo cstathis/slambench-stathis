@@ -20,7 +20,7 @@ ValueDescription::ValueDescription(ValueType type) : type_(type)
 
 ValueDescription::ValueDescription(const structured_description& structured_desc) : type_(VT_COLLECTION), structured_type_(structured_desc)
 {
-	
+
 }
 
 ValueType ValueDescription::GetType() const
@@ -37,17 +37,11 @@ const ValueDescription::structured_description& ValueDescription::GetStructureDe
 }
 
 
-Value::~Value()
-{
-
-}
-
-
 void Value::Dispatch(ValueDispatch* vd)
 {
 	switch(GetType()) {
 #define HANDLE(vt) case vt: vd->Dispatch((TypeForVT<vt>::type*)this); return;
-		
+
 		HANDLE(VT_COLLECTION);
 		HANDLE(VT_U64);
 		HANDLE(VT_DOUBLE);
@@ -70,7 +64,7 @@ void Value::Dispatch(ConstValueDispatch* vd) const
 {
 	switch(GetType()) {
 #define HANDLE(vt) case vt: vd->Dispatch((const TypeForVT<vt>::type*)this); return;
-		
+
 		HANDLE(VT_COLLECTION);
 		HANDLE(VT_U64);
 		HANDLE(VT_DOUBLE);
@@ -90,7 +84,7 @@ void Value::Dispatch(ConstValueDispatch* vd) const
 }
 
 
-FrameValue::FrameValue(const FrameValue& other) : Value(VT_FRAME), width_(other.width_), height_(other.height_), pxl_format_(other.pxl_format_), data_(other.data_) 
+FrameValue::FrameValue(const FrameValue& other) : Value(VT_FRAME), width_(other.width_), height_(other.height_), pxl_format_(other.pxl_format_), data_(other.data_)
 {
 
 }
@@ -98,7 +92,7 @@ FrameValue::FrameValue(const FrameValue& other) : Value(VT_FRAME), width_(other.
 FrameValue::FrameValue(uint32_t width, uint32_t height, slambench::io::pixelformat::EPixelFormat pxl_format, void* data) : Value(VT_FRAME), width_(width), height_(height), pxl_format_(pxl_format)
 {
 	auto depth = slambench::io::pixelformat::GetPixelSize(pxl_format_);
-	
+
 	size_t datasize = width * height * depth;
 	data_.resize(datasize);
 	memcpy(data_.data(), data, datasize);
@@ -107,7 +101,7 @@ FrameValue::FrameValue(uint32_t width, uint32_t height, slambench::io::pixelform
 FrameValue::FrameValue(uint32_t width, uint32_t height, slambench::io::pixelformat::EPixelFormat pxl_format) : Value(VT_FRAME), width_(width), height_(height), pxl_format_(pxl_format)
 {
 	auto depth = slambench::io::pixelformat::GetPixelSize(pxl_format_);
-	
+
 	size_t datasize = width * height * depth;
 	data_.resize(datasize);
 }
@@ -118,7 +112,7 @@ ValueCollectionValue::~ValueCollectionValue() {
 	}
 }
 
-ValueListValue::~ValueListValue() 
+ValueListValue::~ValueListValue()
 {
 	for(auto i : values_) {
 		delete i;
@@ -128,8 +122,4 @@ ValueListValue::~ValueListValue()
 FeatureValue::FeatureValue(const Eigen::Matrix4f& pose, const FrameValue& patch) : Value(VT_FEATURE), image_patch_(patch), pose_(pose)
 {
 
-}
-
-FeatureValue::~FeatureValue() {
-	
 }

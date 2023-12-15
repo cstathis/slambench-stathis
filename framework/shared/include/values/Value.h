@@ -86,7 +86,7 @@ namespace slambench {
 			Value(ValueType type) : value_type_(type) {}
 
 			ValueType GetType() const { return value_type_; }
-			virtual ~Value();
+			virtual ~Value() = default;
 
 			void Dispatch(ValueDispatch *vd);
 			void Dispatch(ConstValueDispatch *vd) const;
@@ -337,7 +337,7 @@ namespace slambench {
 		class FeatureValue : public Value {
 		public:
 			FeatureValue(const Eigen::Matrix4f &pose, const FrameValue &patch);
-			virtual ~FeatureValue();
+			virtual ~FeatureValue() = default;
 
 			FrameValue &GetPatch() { return image_patch_; }
 			Eigen::Matrix4f &GetPose() { return pose_; }
